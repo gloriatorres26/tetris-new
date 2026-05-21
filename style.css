@@ -40,10 +40,9 @@ margin-top:20px;
 }
 
 canvas{
-background:black;
-border:4px solid white;
-max-width:90vw;
-height:auto;
+    display:block;
+    background:black;
+    border:4px solid white;
 }
 
 #scoreboard{
@@ -1813,4 +1812,5 @@ font-size:14px;
 #gameArea{
     position:relative;
     display:inline-block;
+    width:fit-content;
 }
