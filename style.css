@@ -1807,3 +1807,8 @@ font-size:14px;
         0 0 15px orange;
 
 }
+
+#gameArea{
+    position:relative;
+    display:inline-block;
+}
