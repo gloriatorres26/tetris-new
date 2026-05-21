@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Game Statistics</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>📊 Game Statistics</h1>
+
+<div id="statsContainer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey:"AIzaSyB8GnH0i5GZyu4ErdRM3jqCaage65nZLAY",
+  authDomain:"juego-final-6cbd2.firebaseapp.com",
+  databaseURL:"https://juego-final-6cbd2-default-rtdb.firebaseio.com", // 🔥 ESTA ES LA CLAVE
+  projectId:"juego-final-6cbd2",
+  storageBucket:"juego-final-6cbd2.firebasestorage.app",
+  messagingSenderId:"180163711000",
+  appId:"1:180163711000:web:995485be5d72c53b4cb36d"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+
+// obtener room desde URL
+let params = new URLSearchParams(window.location.search);
+let roomCode = params.get("room");
+
+function loadStats(){
+
+firebase.database()
+.ref("rooms/"+roomCode+"/stats")
+.on("value", snap => {
+
+let data = snap.val();
+if(!data) return;
+
+let html = `
+<table class="finalTable">
+<tr>
+<th>Question</th>
+<th>Correct %</th>
+<th>Wrong %</th>
+</tr>
+`;
+
+Object.entries(data).forEach(([id, stat]) => {
+
+let questionText = stat.question || id; // 🔥 usar texto real
+
+let total = stat.correct + stat.wrong;
+
+let correctPercent = Math.round((stat.correct/total)*100);
+let wrongPercent = Math.round((stat.wrong/total)*100);
+
+html += `
+<tr>
+<td>${questionText}</td>
+<td style="color:lime">${correctPercent}%</td>
+<td style="color:red">${wrongPercent}%</td>
+</tr>
+`;
+});
+
+html += "</table>";
+
+document.getElementById("statsContainer").innerHTML = html;
+
+});
+
+}
+
+loadStats();
+
+</script>
+
+</body>
+</html>
