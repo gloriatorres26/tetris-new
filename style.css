@@ -125,21 +125,28 @@ border:3px solid white;
 }
 
 #gameOver{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:red;
-    padding:20px;
 
-    width:80vw;          /* 🔥 clave */
-    max-width:300px;     /* evita que sea gigante en PC */
-    
-    border-radius:15px;
-    z-index:20000;
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,0.45);
+
+    border-radius:10px;
+
+    z-index:9999;
 
     text-align:center;
-    box-sizing:border-box; /* 🔥 evita que el padding rompa el tamaño */
+
+    padding:20px;
+
+    box-sizing:border-box;
 }
 
 .correct{
@@ -1266,11 +1273,6 @@ button, canvas {
 
 button{
   touch-action: manipulation;
-}
-
-#gameOver{
-   font-size: clamp(20px,5vw,32px);
-   text-align:center;
 }
 
 .timeOver{
